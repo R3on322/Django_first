@@ -1,0 +1,6 @@
+# created by virtualenv automatically
+/shelf/
+/workspace.xml
+/.idea/
+/venv*/
+.python-version
