@@ -1,0 +1,16 @@
+{% extends 'rbr_srv_side/base.html' %}
+
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1>Добавление сервера</h1>
+    <form method="post">
+        <input type="text" placeholder="Введите название сервера" class="form-control"><br>
+        <input type="url" placeholder="Введите IP" class="form-control"><br>
+        <textarea placeholder="Введите описание" class="form-control"></textarea><br>
+        <button type="submit" class="btn btn-success">Добавить</button>
+    </form>
+{% endblock %}

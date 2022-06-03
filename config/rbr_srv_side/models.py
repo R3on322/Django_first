@@ -8,6 +8,10 @@ class Server(models.Model):
     description = models.TextField('description', max_length=255, default='no_description')
     server_is_active = models.BooleanField('is_active', default=False)
 
+    def __str__(self):
+        return self.name
+
     class Meta():
         managed = True
-        verbose_name = 'Server'
+        verbose_name = 'Сервер'
+        verbose_name_plural = 'Сервера'

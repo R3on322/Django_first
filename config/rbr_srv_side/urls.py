@@ -1,12 +1,11 @@
 from django.urls import path
-from .views import ServerViewSet, ServerDetailView, ServerAddView, ServerShortViewSet, main, about
+from .views import main, about, servers, servers_add, servers_status
 
 
 urlpatterns = [
-    path('servers/', ServerViewSet.as_view()),
-    path('servers/<int:pk>', ServerDetailView.as_view()),
-    path('servers/add', ServerAddView.as_view()),
-    path('servers/status', ServerShortViewSet.as_view()),
-    path('', main),
-    path('about', about),
+    path('servers/', servers, name='servers'),
+    path('servers/add', servers_add, name='servers_add'),
+    path('servers/status', servers_status, name='servers_status'),
+    path('', main, name='main'),
+    path('about', about, name='about_me'),
     ]

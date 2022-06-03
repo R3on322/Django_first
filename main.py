@@ -1,5 +1,5 @@
 import requests
-import DESC
+#import DESC
 
 
 new_data = {'name': 'hostname',
@@ -8,7 +8,7 @@ new_data = {'name': 'hostname',
             }
 
 
-response = requests.post('http://127.0.0.1:8000/api/servers/add', json=new_data)
+response = requests.post('http://127.0.0.1:8000/servers/add', json=new_data)
 
 
 print(response.json())
