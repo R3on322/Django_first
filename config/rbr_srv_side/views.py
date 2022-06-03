@@ -25,8 +25,11 @@ class ServerShortViewSet(generics.ListAPIView):
     serializer_class = ServerShortSerializer
 
 def main(request):
-    return render(request, 'hello_main.html')
+    return render(request, 'rbr_srv_side/index.html')
+
+def about(request):
+    return render(request, 'rbr_srv_side/about.html')
 
 
 def page_not_found_view(request, exception):
-    return render(request, '404.html', status=404)
+    return render(request, 'rbr_srv_side/404.html', status=404)

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ServerViewSet, ServerDetailView, ServerAddView, ServerShortViewSet, main
+from .views import ServerViewSet, ServerDetailView, ServerAddView, ServerShortViewSet, main, about
 
 
 urlpatterns = [
@@ -8,4 +8,5 @@ urlpatterns = [
     path('servers/add', ServerAddView.as_view()),
     path('servers/status', ServerShortViewSet.as_view()),
     path('', main),
+    path('about', about),
     ]
