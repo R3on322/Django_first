@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from rest_framework import generics
+from django.shortcuts import render, redirect
 from .serializer import ServerSerializer
 from .models import Server
 
@@ -17,8 +16,21 @@ def servers(request):
     return render(request, 'rbr_srv_side/servers.html', {'title': 'Все сервера на сайте', 'server_info': servs})
 
 def servers_add(request):
-    servs = Server.objects.all()
-    return render(request, 'rbr_srv_side/servers_add.html', {'title': 'Добавление сервера на сайт', 'server_info': servs})
+    error = ''
+    if request.method == 'POST':
+        form = ServerSerializer(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('servers')
+        else:
+            error = 'Неверный формат!'
+
+    form = ServerSerializer()
+    context = {
+        'form': form,
+        'error': error
+    }
+    return render(request, 'rbr_srv_side/servers_add.html', context)
 
 def servers_status(request):
     servs = Server.objects.all()
