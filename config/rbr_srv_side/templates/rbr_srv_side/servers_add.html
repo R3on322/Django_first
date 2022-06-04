@@ -8,10 +8,12 @@
 {% block content %}
     <h1>Добавление сервера</h1>
     <form method="post">
-        {% csrf_token %}
-        {{ form.name }}<br>
-        {{ form.ip_address }}<br>
-        {{ form.description }}<br>
+        {% csrf_token %}<br>
+        <p>Название сервера: </p>{{ form.name }}<br>
+        <p>IP: </p>{{ form.ip_address }}<br>
+        <p>Описание: </p>{{ form.description }}<br>
+        <p>Статус сервера(Включен / Выключен): </p>{{ form.server_is_active }}<br><br>
+
         <button type="submit" class="btn btn-success">Добавить</button>
         <span>{{ error }}</span>
     </form>

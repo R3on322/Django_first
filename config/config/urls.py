@@ -19,7 +19,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('rbr_srv_side.urls')),
-    path('', include('rbr_srv_side.urls'))
+    path('', include('rbr_srv_side.urls')),
 ]
 
 handler404 = "rbr_srv_side.views.page_not_found_view"
