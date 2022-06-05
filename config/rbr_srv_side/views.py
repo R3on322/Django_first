@@ -1,16 +1,8 @@
+from django.http import HttpResponseNotFound
 from rest_framework import generics
 from django.shortcuts import render, redirect
 from .serializer import ServerForm, ServerSerializer
 from .models import Server
-
-def main(request):
-    return render(request, 'rbr_srv_side/index.html')
-
-def about(request):
-    return render(request, 'rbr_srv_side/about.html')
-
-def page_not_found_view(request, exception):
-    return render(request, 'rbr_srv_side/404.html', status=404)
 
 class ServerAddView(generics.CreateAPIView):
 
@@ -51,3 +43,12 @@ class ServerDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Server.objects.all()
     serializer_class = ServerSerializer
+
+def main(request):
+    return render(request, 'rbr_srv_side/index.html')
+
+def about(request):
+    return render(request, 'rbr_srv_side/about.html')
+
+def pageNotFound(request, exception):
+    return render(request, 'rbr_srv_side/404.html', status=404)

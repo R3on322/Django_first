@@ -2,22 +2,21 @@ import psutil
 from psutil import virtual_memory as virt_mem
 from psutil import disk_partitions as all_disks
 from psutil import disk_usage as disk_mem_info
-import humanize
 import speedtest
-import os
 
 
 class PC_info:
 
     def main_inf():
-        user_name = psutil.users()[0][0]
-        return f'Host_information: ' \
-               f'Name: {user_name}, ' \
-               f'{PC_info.network_inf()}, ' \
-               f'{PC_info.disk_inf()}, ' \
-               f'{PC_info.memory_inf()}, ' \
-               f'{PC_info.cpu_inf()}, ' \
-               f'{PC_info.load_average_inf()}'
+        all_inf_dict = {'Host_information' : {},}
+        all_inf_dict['Host_information']['Name'] = psutil.users()[0][0]
+        all_inf_dict['Network'] = PC_info.network_inf()
+        all_inf_dict['Disk'] = PC_info.disk_inf()
+        all_inf_dict['Memory'] = PC_info.memory_inf()
+        all_inf_dict['Cpu'] = PC_info.cpu_inf()
+        all_inf_dict['Load_average'] = PC_info.load_average_inf()
+        return all_inf_dict
+
 
     def network_inf():
         network_list = [] # список для вывода
@@ -50,7 +49,7 @@ class PC_info:
 
         network_list.append(stats_dict)
 
-        return  f'Network: {network_list}'
+        return  network_list
 
 
     def disk_inf():
@@ -66,7 +65,7 @@ class PC_info:
             disk_dict['used_percent'] = f'{disk_mem.percent} %'
             disk_params.append(disk_dict)
 
-        return f'Disks: {disk_params}' if len(disk_params) > 1 else f'Disk: {disk_params}'
+        return disk_params
 
 
 
@@ -76,7 +75,7 @@ class PC_info:
         mem_dict['memory_used'] = f'{round(virt_mem().used / 2 ** 30, 2)} Gb'
         mem_dict['memory_free'] = f'{round((virt_mem().total - virt_mem().used) / 2 ** 30, 2)} Gb'
         mem_dict['memory_percent'] = f'{virt_mem().percent} %'
-        return f'Memory: {mem_dict}'
+        return mem_dict
 
     def cpu_inf():
         cpu_dict = {}
@@ -84,17 +83,11 @@ class PC_info:
         cpu_dict['cpu_physical_cores'] = psutil.cpu_count(logical=False)
         cpu_freq_dict = dict(zip(['current', 'min', 'max'], psutil.cpu_freq()))
         cpu_dict['cpu_frequency'] = cpu_freq_dict
-        #f'current = {psutil.cpu_freq().current}, min = {psutil.cpu_freq().min}, max = {psutil.cpu_freq().max}'
-        return f'Cpu: {cpu_dict}'
+        return cpu_dict
 
     def load_average_inf():
         load_aver_dict = dict(zip(['1 min', '5 min', '15 min'], psutil.getloadavg()))
-        return f'Load_average: {load_aver_dict}'
-
-
-
+        return load_aver_dict
 
 a = PC_info
 print(a.main_inf())
-
-
