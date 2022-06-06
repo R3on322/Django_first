@@ -22,7 +22,6 @@ from rbr_srv_side.views import pageNotFound
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('rbr_srv_side.urls')),
     path('', include('rbr_srv_side.urls')),
 ]
 if settings.DEBUG:

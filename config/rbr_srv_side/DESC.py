@@ -18,7 +18,7 @@ class PC_info:
         return all_inf_dict
 
 
-    def network_inf():
+    def network_inf(speed_chek=False): #поменять на True, если хотим получить скорость интернета в инфо
         network_list = [] # список для вывода
 
         bytes_dict = {} # словарь для сохранения информации
@@ -34,18 +34,12 @@ class PC_info:
         net_stats_key = list(net_stats)[0]
         stats_dict['max_speed'] = f'{net_stats[net_stats_key][2]} (Mbps)'
         stats_dict['mtu'] = net_stats[net_stats_key][3]
-        while True:
-            speed_chek = input('Want to chek your internet speed? Type "y" to check or "Enter" to continue: ')
-            if speed_chek.lower() == 'y':
-                print("Wait a seconds, I'm testing the Internet speed...")
-                stats_dict['download_speed'] = f'{round(st.download() / 10 ** 6, 2)} (Mbps)'
-                stats_dict['upload_speed'] = f'{round(st.upload() / 10 ** 6, 2)} (Mbps)'
-                break
-            elif speed_chek.lower() == '':
-                break
-            else:
-                print('Invalid characters, try again...') if len(speed_chek) > 1 else print('Invalid character, try again...')
-                continue
+
+
+        if speed_chek == True:
+            print("Wait a seconds, I'm testing the Internet speed...")
+            stats_dict['download_speed'] = f'{round(st.download() / 10 ** 6, 2)} (Mbps)'
+            stats_dict['upload_speed'] = f'{round(st.upload() / 10 ** 6, 2)} (Mbps)'
 
         network_list.append(stats_dict)
 
@@ -88,6 +82,3 @@ class PC_info:
     def load_average_inf():
         load_aver_dict = dict(zip(['1 min', '5 min', '15 min'], psutil.getloadavg()))
         return load_aver_dict
-
-a = PC_info
-print(a.main_inf())
