@@ -39,7 +39,9 @@ python manage.py runserver
 
 Python 3.10 Django 3.13
 
-### Порядок для загрузки проекта :
+
+
+### Порядок для загрузки проекта на GitHub:
 1. Проверяем статус:
 ```
 git status
@@ -56,8 +58,6 @@ git commit -m "Текст коммита"
 ```
 git push
 ```
-
-
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
