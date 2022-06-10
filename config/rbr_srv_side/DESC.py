@@ -3,22 +3,27 @@ from psutil import virtual_memory as virt_mem
 from psutil import disk_partitions as all_disks
 from psutil import disk_usage as disk_mem_info
 import speedtest
+import logging
 
+logger = logging.getLogger('app.DESC')
 
 class PC_info:
 
-    def main_inf():
-        all_inf_dict = {'Host_information' : {},}
+    @classmethod
+    def main_inf(cls):
+        all_inf_dict = {'Host_information': {}, }
         all_inf_dict['Host_information']['Name'] = psutil.users()[0][0]
-        all_inf_dict['Network'] = PC_info.network_inf()
-        all_inf_dict['Disk'] = PC_info.disk_inf()
-        all_inf_dict['Memory'] = PC_info.memory_inf()
-        all_inf_dict['Cpu'] = PC_info.cpu_inf()
-        all_inf_dict['Load_average'] = PC_info.load_average_inf()
+        all_inf_dict['Network'] = cls.network_inf()
+        all_inf_dict['Disk'] = cls.disk_inf()
+        all_inf_dict['Memory'] = cls.memory_inf()
+        all_inf_dict['Cpu'] = cls.cpu_inf()
+        all_inf_dict['Load_average'] = cls.load_average_inf()
+        logger.info('Получен массив данных о системе...')
         return all_inf_dict
 
 
     def network_inf(speed_chek=False): #поменять на True, если хотим получить скорость интернета в инфо
+        logger.info('Старт программы считывания данных...')
         network_list = [] # список для вывода
 
         bytes_dict = {} # словарь для сохранения информации
