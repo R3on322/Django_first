@@ -19,6 +19,11 @@ requierements.txt - все неоходимые модули там.
 ```
 pip install -r requirements.txt
 ```
+Сохранить модули в файл requirements:
+```
+pip freeze > requirements.txt
+```
+
 ### Обновить pip до последней версии:
 ```
 python -m pip install --upgrade pip
@@ -29,6 +34,28 @@ cd config
 python manage.py runserver
 ```
 Запуск приложения через main.py
+
+### Используется:
+
+Python 3.10 Django 3.13
+
+### Порядок для загрузки проекта :
+1. Проверяем статус:
+```
+git status
+```
+2. Добавляем все файлы с изменениями для отправки
+```
+git add .
+```
+3. Добавляем комментраии по изменениям:
+```
+git commit -m "Текст коммита"
+```
+4. Отправляем на GITHUB:
+```
+git push
+```
 
 
 
