@@ -1,32 +1,35 @@
 import requests, logging
 import json
 from rbr_srv_side import DESC
+import time
 
 
 def POST_zapros():
     try:
-        descript = str(DESC.PC_info.main_inf())
-        logger.info('Загружаем массив данных о системе из файла...')
-        logger.info(descript)
-        logger.info('Массив данных загружен, отправляем на сервер...')
-        new_data = {
-                    'name': 'hostname',
-                    'ip_address': requests.get('https://ipv4-internet.yandex.net/api/v0/ip').text.strip('"'),
-                    'description': descript,
-                    'server_is_active': True
-                    }
-        url = 'http://127.0.0.1:8000/api/servers/add_post'
-        response = requests.post(url, json=new_data)
-        print(response.json())
-        logger.info('Массив успешно отправлен на сервер!')
-    except ConnectionError:
+        while True:
+            descript = str(DESC.PC_info.main_inf())
+            logger.info('Загружаем массив данных о системе из файла...')
+            logger.info(descript)
+            logger.info('Массив данных загружен, отправляем на сервер...')
+            new_data = {
+                'name': 'hostname',
+                'ip_address': requests.get('https://ipv4-internet.yandex.net/api/v0/ip').text.strip('"'),
+                'description': descript,
+                'server_is_active': True
+                }
+            url = 'http://127.0.0.1:8000/api/servers/add'
+            response = requests.post(url, data=new_data)
+            logger.info('Массив успешно отправлен на сервер!')
+            time.sleep(60)
+
+    except requests.exceptions.RequestException:
         logger.error('Возникла ошибка соединения с сервером! Проверьте соединение с сервером...')
     except TypeError:
         logger.error('Ошибка объединения несовместимых объектов...Проверьте аргументы в функциях...')
     except NameError:
         logger.error('Ошибка в имени переменной, проверьте верность указанных переменных...')
     except:
-        logger.error('Возникла ошибка!')
+        logger.error('Возникла ошибка! Проверьте код...')
     finally:
         logger.info('Логгер завершен!')
 
