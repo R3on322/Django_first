@@ -1,7 +1,9 @@
+import django.db
 from rest_framework import generics
 from django.shortcuts import render, redirect
 from .serializer import ServerForm
 from .models import Server
+from .chek_serv import chek_server_ip_name
 
 def servers_add(request):
     error = ''
@@ -11,7 +13,7 @@ def servers_add(request):
             form.save()
             return redirect('servers')
         else:
-            error = 'Неверный формат!'
+            error = 'Ошибка ввода! Проверьте название сервера или IP адрес!'
 
     form = ServerForm()
     context = {

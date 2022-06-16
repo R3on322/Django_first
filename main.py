@@ -2,15 +2,17 @@ import requests, logging
 import json
 from rbr_srv_side import DESC
 import time
+from rbr_srv_side import chek_serv
+
 
 
 def POST_zapros():
-    try:
-        while True:
-            descript = str(DESC.PC_info.main_inf())
-            logger.info('Загружаем массив данных о системе из файла...')
-            logger.info(descript)
-            logger.info('Массив данных загружен, отправляем на сервер...')
+    count_exceptions = 0
+    descript = str(DESC.PC_info.main_inf())
+    logger.info('Отправляю массив данных на сервер...')
+    while True:
+        try:
+            name_ip_chek = list(chek_serv.chek_server_ip_name())
             new_data = {
                 'name': 'hostname',
                 'ip_address': requests.get('https://ipv4-internet.yandex.net/api/v0/ip').text.strip('"'),
@@ -18,20 +20,29 @@ def POST_zapros():
                 'server_is_active': True
                 }
             url = 'http://127.0.0.1:8000/api/servers/add'
-            response = requests.post(url, data=new_data)
+            if new_data['name'] in name_ip_chek[0]:
+                raise NameError
+            elif new_data['ip_address'] in name_ip_chek[1]:
+                raise ValueError
+            else:
+                response = requests.post(url, data=new_data)
+        except requests.exceptions.RequestException:
+            count_exceptions += 1
+            logger.error(f'Попытка соединения с сервером... {count_exceptions}')
+            if count_exceptions == 5:
+                logger.error('Ошибка соединения с сервером. Проверьте подключение...')
+                break
+        except ValueError:
+            logger.error('Ошибка в IP адресе сервера. Возможно данный IP уже есть на сервере...')
+            break
+        except NameError:
+            logger.error('Ошибка в названии сервера. Возможно данное имя уже используется...')
+            break
+        except:
+            logger.error('Возникла ошибка! Проверьте код...')
+        else:
             logger.info('Массив успешно отправлен на сервер!')
-            time.sleep(60)
-
-    except requests.exceptions.RequestException:
-        logger.error('Возникла ошибка соединения с сервером! Проверьте соединение с сервером...')
-    except TypeError:
-        logger.error('Ошибка объединения несовместимых объектов...Проверьте аргументы в функциях...')
-    except NameError:
-        logger.error('Ошибка в имени переменной, проверьте верность указанных переменных...')
-    except:
-        logger.error('Возникла ошибка! Проверьте код...')
-    finally:
-        logger.info('Логгер завершен!')
+        time.sleep(10)
 
 def logg_info(name):
     logger = logging.getLogger(name)

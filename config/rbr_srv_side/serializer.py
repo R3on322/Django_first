@@ -2,11 +2,6 @@ from rest_framework import serializers
 from .models import Server
 from django.forms import ModelForm, TextInput, Textarea, CheckboxInput
 
-class ServerSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Server
-        fields = ['id', 'name', 'ip_address', 'description', 'server_is_active']
 
 class ServerForm(ModelForm):
 

@@ -2,8 +2,8 @@ from django.db import models
 
 class Server(models.Model):
 
-    name = models.CharField('name', max_length=255)
-    ip_address = models.GenericIPAddressField('IP', max_length=16)
+    name = models.CharField('name', max_length=255, unique=True)
+    ip_address = models.GenericIPAddressField('IP', max_length=16, unique=True)
     description = models.TextField('description', default='no_description')
     server_is_active = models.BooleanField('is_active', default=False)
 
