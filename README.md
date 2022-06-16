@@ -37,7 +37,7 @@ python manage.py runserver
 
 ### Используется:
 
-Python 3.10 Django 3.13
+Python 3.10 Django 4
 
 
 
