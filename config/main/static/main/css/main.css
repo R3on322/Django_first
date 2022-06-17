@@ -1,0 +1,7 @@
+body {
+    background: #FF0000FF;
+}
+
+nav div ul a:hover {
+    color: #004CFDFF;
+}

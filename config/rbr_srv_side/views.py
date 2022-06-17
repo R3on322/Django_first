@@ -1,9 +1,7 @@
 import django.db
-from rest_framework import generics
 from django.shortcuts import render, redirect
 from .serializer import ServerForm
 from .models import Server
-from .chek_serv import chek_server_ip_name
 
 def servers_add(request):
     error = ''

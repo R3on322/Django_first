@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import servers as all_servs, servers_add as add_servs
+from .views import servers as all_servs,servers_add as add_servs
 from django.views.decorators.csrf import csrf_exempt
 
 
