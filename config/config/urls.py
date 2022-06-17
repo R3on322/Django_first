@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 from config import settings
-from rbr_srv_side.views import pageNotFound
+from main.views import pageNotFound
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('rbr_srv_side.urls')),
+    path('', include('main.urls')),
+    path('api/', include('rbr_srv_side.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, documet_root=settings.MEDIA_ROOT)

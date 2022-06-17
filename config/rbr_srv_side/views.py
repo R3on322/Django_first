@@ -13,7 +13,7 @@ def servers_add(request):
             form.save()
             return redirect('servers')
         else:
-            error = 'Ошибка ввода! Проверьте название сервера или IP адрес!'
+            error = 'Ошибка ввода!'
 
     form = ServerForm()
     context = {
@@ -26,11 +26,3 @@ def servers(request):
     servs = Server.objects.all()
     return render(request, 'rbr_srv_side/servers.html', {'title': 'Все сервера на сайте', 'server_info': servs})
 
-def main(request):
-    return render(request, 'rbr_srv_side/index.html')
-
-def about(request):
-    return render(request, 'rbr_srv_side/about.html')
-
-def pageNotFound(request, exception):
-    return render(request, 'rbr_srv_side/404.html', status=404)
