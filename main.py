@@ -6,15 +6,15 @@ from rbr_srv_side import chek_serv
 
 
 
-def POST_zapros():
+def post_zapros():
     count_exceptions = 0
-    descript = str(DESC.PC_info.main_inf())
+    descript = str(DESC.PCInfo.main_inf())
     logger.info('Отправляю массив данных на сервер...')
     while True:
         try:
             name_ip_chek = list(chek_serv.chek_server_ip_name())
             new_data = {
-                'name': 'hostname',
+                'name': 'hostname_1',
                 'ip_address': requests.get('https://ipv4-internet.yandex.net/api/v0/ip').text.strip('"'),
                 'description': descript,
                 'server_is_active': True
@@ -62,4 +62,4 @@ logg_info('app')
 logger = logging.getLogger('app.main')
 
 if __name__ == "__main__":
-    POST_zapros()
+    post_zapros()

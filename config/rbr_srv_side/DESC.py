@@ -7,7 +7,7 @@ import logging
 
 logger = logging.getLogger('app.DESC')
 
-class PC_info:
+class PCInfo:
 
     @classmethod
     def main_inf(cls):
